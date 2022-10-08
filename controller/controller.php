@@ -168,6 +168,14 @@ class Controller
         return $this->render('helper/403.php');
     }
     
+    protected function denyAccessUnlessGranted($user, $role)
+    {
+        if(!$this->isGranted($user, $role)) {
+            // header('X-PHP-Response-Code: 403', true, 403);
+            throw new \Exception('Désolé, l\'accès à cette page est interdit !');
+        }
+    }
+    
     protected function getDefaultConfig()
     {
         return include 'config/config.php';

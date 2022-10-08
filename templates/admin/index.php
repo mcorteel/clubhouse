@@ -47,6 +47,18 @@
             </a>
         </div>
     <?php } ?>
+    <?php if($permissions['resources']) { ?>
+        <div class="col-md-4">
+            <a href="<?= $this->path('/admin/ressources'); ?>" class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-cubes-stacked fa-fw"></i> Ressources
+                </div>
+                <div class="card-body">
+                    Gérer les resources réservables
+                </div>
+            </a>
+        </div>
+    <?php } ?>
     <?php if($permissions['config']) { ?>
         <div class="col-md-4">
             <a href="<?= $this->path('/admin/config'); ?>" class="card mb-3">

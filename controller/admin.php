@@ -17,6 +17,7 @@ class AdminController extends Controller
                 'partners' => $this->isGranted($user, 'admin'),
                 'news' => $this->isGranted($user, 'news_admin'),
                 'pictures' => $this->isGranted($user, 'admin'),
+                'resources' => $this->isGranted($user, 'admin'),
             ),
             'db_version' => $this->getDatabaseVersion(),
         ));

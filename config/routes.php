@@ -45,6 +45,12 @@ return array(
     'admin\/actualites\/(\d+)' => 'admin_news/edit',
     'admin\/actualites\/(\d+)\/supprimer' => 'admin_news/remove',
     
+    'admin\/ressources' => 'admin_resources/all',
+    'admin\/ressources\/page\/(\d+)' => 'admin_resources/all',
+    'admin\/ressources\/nouvelle' => 'admin_resources/edit',
+    'admin\/ressources\/(\d+)' => 'admin_resources/edit',
+    'admin\/ressources\/(\d+)\/supprimer' => 'admin_resources/remove',
+    
     'admin\/config' => 'admin_config/index',
     
     ////////////////////////////////////

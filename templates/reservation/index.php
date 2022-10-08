@@ -41,7 +41,7 @@ if(!empty($resources)) {
     <table class="table table-bordered table-hover">
         <thead>
             <tr class="text-center">
-                <th rowspan=2></th>
+                <th rowspan=2 style="width: 50px;"></th>
                 <?php
                 $resourceGroup = null;
                 $count = 0;
