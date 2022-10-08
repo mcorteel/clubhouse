@@ -1,0 +1,10 @@
+<?php
+
+return array(
+    'database' => array(
+        'host' => 'localhost',
+        'name' => 'database_name',
+        'user' => 'user_name',
+        'password' => 'user_password',
+    ),
+);

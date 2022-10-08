@@ -1,0 +1,157 @@
+:root {
+    --main-bgcolor: #EEE;
+    --menu-color: #FFF;
+    --menu-link-color: #555;
+    --menu-link-hover-color: #c95a1b;
+    --menu-link-active-color: #c95a1b;
+    --card-header-bgcolor: #c95a1b;
+    --card-body-bgcolor: #FFF;
+    --card-bdcolor: #c95a1b;
+}
+
+body {
+    background: var(--main-bgcolor);
+}
+
+.navbar.bg-dark {
+    background-color: var(--menu-color)!important;
+    border-bottom: 1px solid var(--menu-link-active-color);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--menu-link-color);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--menu-link-hover-color);
+}
+
+.navbar-dark .navbar-brand {
+    padding: 0;
+    margin-top: -0.4rem;
+    margin-bottom: -0.4rem;
+}
+
+.navbar-brand > img {
+    height: 55px;
+}
+
+
+nav .nav-link.active {
+    position: relative;
+    color: var(--menu-link-active-color)!important;
+}
+
+nav .nav-link.active::after {
+    display: block;
+    content: '';
+    height: 0.5rem;
+    width: 0.5rem;
+    background: var(--menu-link-active-color);
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -0.25rem;
+    margin-top: 0.25rem;
+}
+
+@media(max-width: 991px) {
+    .nav-link.active::after {
+        left: initial;
+        right: 0;
+        top: 50%;
+        margin-top: -0.25rem;
+        margin-right: 0.25rem;
+    }
+}
+
+#main_container {
+    background: var(--main-bgcolor);
+}
+
+.card {
+    border-color: var(--card-bdcolor);
+}
+
+a.card {
+    color: initial;
+    text-decoration: initial;
+    box-shadow: 1px 1px 3px #AAAA;
+}
+
+a.card:hover {
+    box-shadow: 1px 1px 3px #888;
+}
+
+.card-header {
+    background-color: var(--card-header-bgcolor);
+    color: #FFF;
+}
+
+@media(max-width: 768px) {
+    .card-header {
+        font-size: 1.3rem;
+    }
+}
+
+.card-header .btn,
+.table td .btn {
+    line-height: 0.8rem;
+}
+
+.card-body img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.card-body + .card-body:not(.tab-pane) {
+    padding-top: 0;
+}
+
+.card-body h1 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+}
+
+.card-body h2 {
+    font-size: 1rem;
+    margin: 0 0 0.25rem;
+}
+
+.table-bordered > :not(caption) > * > * {
+    border-width: 1px;
+}
+
+.modal-link {
+    cursor: pointer;
+}
+
+label {
+    font-weight: bold;
+}
+
+label.form-check-label {
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.selectize-dropdown, .selectize-input, .selectize-input input {
+    font-size: inherit!important;
+}
+
+
+.selectize-dropdown .option {
+    padding: 8px;
+}
+.selectize-input {
+    padding: 5px 8px;
+}
+
+.nav-tabs.card-body {
+    padding: 0;
+}
+.nav-tabs.card-body .nav-link {
+    border-radius: 0;
+    border-top: none;
+}
