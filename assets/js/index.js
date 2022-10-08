@@ -10,7 +10,7 @@ var setInnerHTML = function(elm, html) {
 }
 
 // Tooltips
-const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'));
 tooltipTriggerList.forEach(function (el) {
     new bootstrap.Tooltip(el);
 });
@@ -23,7 +23,14 @@ $('body').on('click', '.modal-link', function(e) {
     modalContent.innerHTML = '<h1 class="text-center"><i class="fas fa-spinner fa-spin"></i></h1>';
     const url = $(this).attr('href') || $(this).data('url');
     fetch(url)
-        .then(response => response.text())
+        .then(response => {
+            if(response.status === 403) {
+                return '<p class="alert alert-danger m-0">Désolé, l\'accès à cette page est interdit !</p>';
+            } else if(response.status === 404) {
+                return '<p class="alert alert-danger m-0">Désolé, cette page est introuvable !</p>';
+            }
+            return response.text();
+        })
         .then(data => setInnerHTML(modalContent, data));
     modal.show();
 });

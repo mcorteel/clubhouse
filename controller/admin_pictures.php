@@ -9,9 +9,7 @@ class AdminPicturesController extends Controller
     
     public function all($page = 1)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         $count = (int)$this->querySingleScalar('SELECT COUNT(*) FROM pictures');
         
@@ -34,9 +32,7 @@ class AdminPicturesController extends Controller
     
     public function edit($id = null)
     {
-        if(!$this->isGranted($user = $this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($user = $this->getUser(), 'admin');
         
         $dir = $this->getConfig('picture_dir');
         
@@ -119,9 +115,7 @@ class AdminPicturesController extends Controller
     
     public function remove($id)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         $picture = $this->querySingle('SELECT * FROM pictures WHERE id = ?', array($id));
         
@@ -144,9 +138,7 @@ class AdminPicturesController extends Controller
     
     public function scan()
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         $target_dir = realpath(getcwd() . '/..');
         

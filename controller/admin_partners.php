@@ -7,9 +7,7 @@ class AdminPartnersController extends Controller
 {
     public function all($page = 1)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         $count = (int)$this->querySingleScalar('SELECT COUNT(*) FROM partners');
         
@@ -32,9 +30,7 @@ class AdminPartnersController extends Controller
     
     public function edit($id = null)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         if($id !== null) {
             $partner = $this->querySingle('SELECT * FROM partners WHERE id = ?', array($id));
@@ -67,9 +63,7 @@ class AdminPartnersController extends Controller
     
     public function remove($id)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         $partner = $this->querySingle('SELECT * FROM partners WHERE id = ?', array($id));
         

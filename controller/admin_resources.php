@@ -30,9 +30,7 @@ class AdminResourcesController extends Controller
     
     public function edit($id = null)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         if($id !== null) {
             $resource = $this->querySingle('SELECT * FROM resources WHERE id = ?', array($id));
@@ -67,9 +65,7 @@ class AdminResourcesController extends Controller
     
     public function remove($id)
     {
-        if(!$this->isGranted($this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
         $resource = $this->querySingle('SELECT * FROM resources WHERE id = ?', array($id));
         

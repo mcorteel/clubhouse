@@ -6,9 +6,7 @@ class AdminConfigController extends Controller
 {
     public function index()
     {
-        if(!$this->isGranted($user = $this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($user = $this->getUser(), 'admin');
         
         $configs = isset($_POST['config']) ? $_POST['config'] : array();
         foreach($configs as $key => $value) {

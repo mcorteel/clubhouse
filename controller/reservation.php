@@ -88,9 +88,7 @@ class ReservationController extends Controller
     {
         $user = $this->getUser();
         
-        if(!$this->isGranted($user, 'user')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($user, 'reservation');
         
         $time = new DateTime($_GET['time']);
         $admin = $this->isGranted($user, 'reservation_admin');
@@ -147,9 +145,7 @@ class ReservationController extends Controller
     
     public function show($id)
     {
-        if(!$this->isGranted($this->getUser(), 'user')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'user');
         
         $reservation = $this->getReservationDetails($this->querySingle('SELECT * FROM reservations WHERE id = ?', array($id)), true);
         
@@ -161,9 +157,7 @@ class ReservationController extends Controller
     
     public function cancel($id)
     {
-        if(!$this->isGranted($user = $this->getUser(), 'user')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($user = $this->getUser(), 'reservation');
         
         $reservation = $this->querySingle('SELECT * FROM reservations WHERE id = ?', array($id));
         $time = new DateTime($reservation['date_start']);

@@ -12,9 +12,7 @@ class AdminUsersController extends Controller
     
     public function all($page = 1)
     {
-        if(!$this->isGranted($this->getUser(), 'user_admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'user_admin');
         
         $count = (int)$this->querySingleScalar('SELECT COUNT(*) FROM users');
         
@@ -38,9 +36,7 @@ class AdminUsersController extends Controller
     
     public function edit($id = null)
     {
-        if(!$this->isGranted($this->getUser(), 'user_admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'user_admin');
         
         if($id !== null) {
             $user = $this->querySingle('SELECT * FROM users WHERE id = ?', array($id));

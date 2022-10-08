@@ -171,7 +171,7 @@ class Controller
     protected function denyAccessUnlessGranted($user, $role)
     {
         if(!$this->isGranted($user, $role)) {
-            // header('X-PHP-Response-Code: 403', true, 403);
+            header('X-PHP-Response-Code: 403', true, 403);
             throw new \Exception('Désolé, l\'accès à cette page est interdit !');
         }
     }

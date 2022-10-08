@@ -6,9 +6,7 @@ class AdminNewsController extends Controller
 {
     public function all($page = 1)
     {
-        if(!$this->isGranted($this->getUser(), 'news_admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'news_admin');
         
         $count = (int)$this->querySingleScalar('SELECT COUNT(*) FROM news');
         
@@ -31,9 +29,7 @@ class AdminNewsController extends Controller
     
     public function edit($id = null)
     {
-        if(!$this->isGranted($user = $this->getUser(), 'news_admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($user = $this->getUser(), 'news_admin');
         
         if($id !== null) {
             $news = $this->querySingle('SELECT * FROM news WHERE id = ?', array($id));
@@ -73,9 +69,7 @@ class AdminNewsController extends Controller
     
     public function remove($id)
     {
-        if(!$this->isGranted($this->getUser(), 'news_admin')) {
-            return $this->redirectTo('/actualites');
-        }
+        $this->denyAccessUnlessGranted($this->getUser(), 'news_admin');
         
         $partner = $this->querySingle('SELECT * FROM news WHERE id = ?', array($id));
         
