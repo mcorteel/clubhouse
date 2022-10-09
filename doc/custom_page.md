@@ -53,8 +53,6 @@ The key is the URL path, the value refers to the controller and method.
 Your controller renders the `club/index.php` (though it could be any file inside the `templates` directory), so let's create `templates/club/index.php`:
 
 ```php
-<?php
-
 <div class="card">
     <div class="card-header">Our club</div>
 </div>
