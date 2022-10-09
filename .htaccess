@@ -3,4 +3,5 @@ RewriteEngine On
 # Rewrite URLs
 RewriteCond %{REQUEST_URI} !index.php
 RewriteCond %{REQUEST_URI} !assets
+RewriteCond %{REQUEST_URI} !photos
 RewriteRule (.*) index.php?request=$1&%{QUERY_STRING}

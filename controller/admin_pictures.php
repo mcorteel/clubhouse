@@ -57,7 +57,7 @@ class AdminPicturesController extends Controller
                 'user' => $user['id'],
             );
             if(isset($_FILES['file']) && $_FILES['file']['size']) {
-                $root_dir = realpath(getcwd() . '/..');
+                $root_dir = realpath(getcwd());
                 if(!$root_dir) {
                     $this->flash('Le répertoire de téléversement n\'existe pas.', 'danger');
                     $data['file'] = null;
@@ -119,7 +119,7 @@ class AdminPicturesController extends Controller
         
         $picture = $this->querySingle('SELECT * FROM pictures WHERE id = ?', array($id));
         
-        $root_dir = realpath(getcwd() . '/..');
+        $root_dir = realpath(getcwd());
         if(!$root_dir) {
             $this->flash('Le répertoire de téléversement n\'existe pas.', 'danger');
             return $this->redirectTo('/admin/images/' . $picture['id']);
@@ -140,7 +140,7 @@ class AdminPicturesController extends Controller
     {
         $this->denyAccessUnlessGranted($this->getUser(), 'admin');
         
-        $target_dir = realpath(getcwd() . '/..');
+        $target_dir = realpath(getcwd());
         
         $dir = isset($_GET['dir']) ? $_GET['dir'] : $this->getConfig('picture_dir');
         $create = isset($_GET['confirm']) && $_GET['confirm'] === '1';
