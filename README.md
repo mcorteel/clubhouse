@@ -1,5 +1,5 @@
 # ClubHouse
-A website builder for tennis clubs, easy to set up and extend.
+A website builder for sports clubs, easy to set up and extend.
 
 # Features
 ClubHouse features:
