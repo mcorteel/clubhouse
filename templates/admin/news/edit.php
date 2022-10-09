@@ -29,6 +29,7 @@
     </form>
 </div>
 
+<?php if(version_compare(PHP_VERSION, '5.3.0') >= 0) { ?>
 <script>
 new SimpleMDE({
     element: document.getElementById('content'),
@@ -37,3 +38,4 @@ new SimpleMDE({
     placeholder: 'Contenu',
 });
 </script>
+<?php } ?>

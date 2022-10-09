@@ -1,7 +1,10 @@
 <?php
 
-// require(dirname(__FILE__) . '/../../vendor/Parsedown.php');
-// $parsedown = new Parsedown();
+$parsedown = null;
+if(version_compare(PHP_VERSION, '5.3.0') >= 0) {
+    require(dirname(__FILE__) . '/../../vendor/Parsedown.php');
+    $parsedown = new Parsedown();
+}
 
 foreach($articles as $article) { ?>
     <div class="card mb-3">
@@ -13,7 +16,7 @@ foreach($articles as $article) { ?>
         </div>
         <div class="card-body">
             <h2><?= $article['title'] ?></h2>
-            <?= $article['content'] ?>
+            <?= $parsedown ? $parsedown->text($article['content']) : $article['content'] ?>
         </div>
     </div>
 <?php }
