@@ -1,6 +1,9 @@
 <?php
 
 return array(
+    'meta_title' => 'ClubHouse',
+    'meta_description' => 'A website builder for sports clubs',
+    'meta_keywords' => 'sports,club,clubhouse',
     'reservation_message' => null,
     'reservation_limit' => 2,
     'reservation_min_hour' => 8,

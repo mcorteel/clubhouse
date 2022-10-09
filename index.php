@@ -69,10 +69,10 @@ $menu = include 'config/menu.php';
 
     <script src="https://kit.fontawesome.com/806b38dd59.js" crossorigin="anonymous"></script>
 
-	<title>Tennis Club Beaumont-le-Roger</title>
+	<title><?= $controller->getConfig('meta_title') ?></title>
 	
-	<meta name="description" content="Site du club de tennis de beaumont-le-roger" />
-	<meta name="keywords" content="tennis beaumont, tennis beaumont le roger, tennis club beaumont, tennis club beaumont le roger, tennis, TCB, tcbeaumont, tcbeaumont.fr, beaumont-le-roger" />
+	<meta name="description" content="<?= $controller->getConfig('meta_description') ?>" />
+	<meta name="keywords" content="<?= $controller->getConfig('meta_keywords') ?>" />
     
 	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/logo.svg" />
     
@@ -93,7 +93,7 @@ $menu = include 'config/menu.php';
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand text-truncate" href="/v2">
-                <img src="/assets/img/logo.svg" alt="TC Beaumont-le-Roger" height=40 />
+                <img src="/assets/img/logo.svg" alt="Logo" height=40 />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
