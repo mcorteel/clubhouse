@@ -92,7 +92,7 @@ $menu = include 'config/menu.php';
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand text-truncate" href="/v2">
+            <a class="navbar-brand text-truncate" href="/">
                 <img src="/assets/img/logo.svg" alt="Logo" height=40 />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
