@@ -10,6 +10,7 @@ class Controller
     private $user = null;
     private $authorization = null;
     private $router = null;
+    private $setup = null;
     
     public function generateUrl($path, $arguments = array())
     {
@@ -46,8 +47,8 @@ class Controller
     
     private function getDatabase()
     {
-        $setup = include 'config/setup.php';
-        $db = $setup['database'];
+        $this->setup = include 'config/setup.php';
+        $db = $this->setup['database'];
         try {
             return new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['name'], $db['user'], $db['password']);
         } catch(PDOException $e) {
@@ -55,13 +56,30 @@ class Controller
         }
     }
     
-    protected function execute($query, $parameters = array())
+    private function setPrefix($query)
+    {
+        $prefix = $this->setup['database']['prefix'];
+        if(trim($prefix)) {
+            $replacements = array(
+                'UPDATE ',
+                'INTO ',
+                'FROM ',
+                'JOIN ',
+            );
+            foreach($replacements as $source) {
+                $query = str_replace($source, $source . $prefix, $query);
+            }
+        }
+        return $query;
+    }
+    
+    private function execute($query, $parameters = array())
     {
         if($this->database === null) {
             $this->database = $this->getDatabase();
         }
         
-        $statement = $this->database->prepare($query);
+        $statement = $this->database->prepare($this->setPrefix($query));
         return $statement->execute($parameters);
     }
     
@@ -71,7 +89,7 @@ class Controller
             $this->database = $this->getDatabase();
         }
         
-        $statement = $this->database->prepare($query);
+        $statement = $this->database->prepare($this->setPrefix($query));
         $statement->execute($parameters);
         return $statement->fetchAll();
     }

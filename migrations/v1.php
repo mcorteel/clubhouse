@@ -1,8 +1,12 @@
+<?php
+$setup = include 'config/setup.php';
+$prefix = $setup['database']['prefix'] ? $setup['database']['prefix'] . '_' : '';
+?>
 --
 -- Create user table
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `<?= $prefix ?>users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) DEFAULT NULL,
@@ -10,17 +14,29 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `roles` varchar(300) DEFAULT 'user',
   `created_at` datetime NOT NULL,
+  `reservation_type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO users (first_name, email, password, roles, created_at) VALUES ('Admin', 'admin', '$2y$10$GE/Syi9lJJ.k5ZaIbR3ncOyQMqb8yb4k7ji.q/YQ7xz/RqTngqzcq', 'super_admin', NOW());
+--
+-- Create default admin account
+--
+
+INSERT INTO `<?= $prefix ?>users` (first_name, email, password, roles, created_at) VALUES ('Admin', 'admin', '$2y$10$GE/Syi9lJJ.k5ZaIbR3ncOyQMqb8yb4k7ji.q/YQ7xz/RqTngqzcq', 'super_admin', NOW());
+
+
+--
+-- Add default reservation type to users
+--
+
+UPDATE `<?= $prefix ?>users` SET reservation_type = 'normal';
 
 --
 -- Create resource table
 --
 
-CREATE TABLE `resources` (
+CREATE TABLE `<?= $prefix ?>resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `short_name` varchar(5) NOT NULL,
@@ -32,7 +48,7 @@ CREATE TABLE `resources` (
 -- Create reservation table
 --
 
-CREATE TABLE `reservations` (
+CREATE TABLE `<?= $prefix ?>reservations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
   `user` int(11) NOT NULL,
@@ -52,7 +68,7 @@ CREATE TABLE `reservations` (
 -- Create reservation <> player link table
 --
 
-CREATE TABLE `reservation_players` (
+CREATE TABLE `<?= $prefix ?>reservation_players` (
   `reservation` int(11) NOT NULL,
   `user` int(11) NOT NULL,
   `team` varchar(1) NOT NULL,
@@ -68,7 +84,7 @@ CREATE TABLE `reservation_players` (
 -- Create config table
 --
 
-CREATE TABLE `config` (
+CREATE TABLE `<?= $prefix ?>config` (
   `identifier` varchar(50) NOT NULL,
   `value` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -78,7 +94,7 @@ CREATE TABLE `config` (
 -- Create picture table
 --
 
-CREATE TABLE `pictures` (
+CREATE TABLE `<?= $prefix ?>pictures` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `user` int(11) DEFAULT NULL,
@@ -91,7 +107,7 @@ CREATE TABLE `pictures` (
 -- Create news table
 --
 
-CREATE TABLE `news` (
+CREATE TABLE `<?= $prefix ?>news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL,
   `user` int(11) DEFAULT NULL,
@@ -101,17 +117,10 @@ CREATE TABLE `news` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Add default reservation type to users
---
-
-ALTER TABLE users ADD reservation_type varchar(20) NOT NULL;
-UPDATE users SET reservation_type = 'normal';
-
---
 -- Create partner table
 --
 
-CREATE TABLE `partners` (
+CREATE TABLE `<?= $prefix ?>partners` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
