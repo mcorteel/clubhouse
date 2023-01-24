@@ -39,6 +39,19 @@
                     </div>
                 </div>
             </div>
+            <hr />
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">Adresse du club</label>
+                <div class="col-md-8">
+                    <textarea class="form-control" name="config[club_address]"><?= $config['club_address'] ?></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">E-mail du club</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="config[club_email]" value="<?= $config['club_email'] ?>" />
+                </div>
+            </div>
         </div>
         <div class="card-body tab-pane" id="tab_reservation">
             <div class="row mb-3">
