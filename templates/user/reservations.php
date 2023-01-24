@@ -18,7 +18,7 @@
         <tr>
             <th>Date</th>
             <th>Joueurs</th>
-            <th>Score</th>
+            <th class="d-none">Score</th>
             <th></th>
         </tr>
     </thead>
@@ -29,11 +29,15 @@
             <tr<?php if((int)$date->format('YmdH') < (int)date('YmdH')) { ?> class="table-secondary"<?php } ?>>
                 <td><?= $date->format('d/m/Y \à H'); ?>h</td>
                 <td class="players">
-                    <?php foreach($reservation['players'] as $player) { ?>
-                        <span><?= $player['name'] ?></span>
+                    <?php foreach($reservation['players'] as $player) {
+                        if($player['id'] === $app['user']['id']) {
+                            continue;
+                        }
+                        ?>
+                        <span><?= trim($player['name']) ?></span>
                     <?php } ?>
                 </td>
-                <td><?= $reservation['score'] ?></td>
+                <td class="d-none"><?= $reservation['score'] ?></td>
                 <td class="text-end">
                     <?php if($reservation['user'] === $app['user']['id']) { ?>
                         <a href="<?= $this->path('/reservation/show/' . $reservation['id']); ?>" class="btn btn-sm btn-primary modal-link">

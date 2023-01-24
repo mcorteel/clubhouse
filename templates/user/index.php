@@ -5,7 +5,7 @@
                 <i class="fas fa-calendar fa-fw"></i> Mes réservations
             </div>
             <div class="card-body">
-                Voir mes dernières réservations
+                Voir l'historique de mes réservations
             </div>
         </a>
     </div>

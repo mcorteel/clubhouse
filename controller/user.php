@@ -58,7 +58,7 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         
-        $count = (int)$this->querySingleScalar('SELECT COUNT(DISTINCT p.reservation) FROM reservation_players p JOIN reservations r ON p.reservation = r.id WHERE p.user = ? AND r.recurrence IS NULL', array($user['id']));
+        $count = (int)$this->querySingleScalar('SELECT COUNT(DISTINCT p.reservation) FROM reservation_players p JOIN reservations r ON p.reservation = r.id WHERE p.user = ? AND r.recurrence = ?', array($user['id'], 'none'));
         
         $itemsPerPage = 10;
         
@@ -68,9 +68,9 @@ class UserController extends Controller
         
         $firstItem = ((int)$page - 1) * $itemsPerPage;
         
-        $reservations = $this->query('SELECT r.* FROM reservation_players p JOIN reservations r ON p.reservation = r.id WHERE p.user = ? AND r.recurrence IS NULL ORDER BY r.date_start DESC LIMIT ' . $firstItem . ', ' . $itemsPerPage, array($user['id']));
+        $reservations = $this->query('SELECT r.* FROM reservation_players p JOIN reservations r ON p.reservation = r.id WHERE p.user = ? AND r.recurrence = ? ORDER BY r.date_start DESC LIMIT ' . $firstItem . ', ' . $itemsPerPage, array($user['id'], 'none'));
         foreach($reservations as $i => $reservation) {
-            $reservations[$i]['players'] = $this->query('SELECT CONCAT(u.first_name, " ", u.last_name) AS name, p.team FROM reservation_players p JOIN users u ON p.user = u.id WHERE p.reservation = ?', array($reservation['id']));
+            $reservations[$i]['players'] = $this->query('SELECT u.id AS id, CONCAT(COALESCE(u.first_name, ""), " ", COALESCE(u.last_name, "")) AS name, p.team FROM reservation_players p JOIN users u ON p.user = u.id WHERE p.reservation = ?', array($reservation['id']));
         }
         
         return $this->render('user/reservations.php', array(

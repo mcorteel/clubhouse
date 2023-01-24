@@ -63,6 +63,9 @@
                         <option value="60"<?= $config['reservation_subdivision'] == 60 ? ' selected' : '' ?>>1 heure</option>
                     </select>
                 </div>
+                <div class="offset-md-4 col-md-8 text-muted">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i> Le changement de cette configuration peut casser l'affichage du tableau des réservations déjà effectuées.
+                </div>
             </div>
             <div class="row mb-3">
                 <label class="col-md-4 col-form-label text-md-end">Durée maximale de réservation (subdivisions)</label>
