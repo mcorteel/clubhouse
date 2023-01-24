@@ -142,6 +142,10 @@ label.form-check-label {
     cursor: pointer;
 }
 
+.dropdown-item {
+    line-height: 2;
+}
+
 .selectize-dropdown, .selectize-input, .selectize-input input {
     font-size: inherit!important;
 }
