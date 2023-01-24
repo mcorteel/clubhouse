@@ -59,12 +59,12 @@ class AdminUsersController extends Controller
                 'roles' => implode(',', array_unique(isset($_POST['roles']) ? $_POST['roles'] : array())),
                 'reservation_type' => $_POST['reservation_type'],
             );
+            if($password = $_POST['password']) {
+                $hasher = new PasswordHash(8, false);
+                
+                $data['password'] = $hasher->HashPassword($password);
+            }
             if($user['id']) {
-                if($password = $_POST['password']) {
-                    $hasher = new PasswordHash(8, false);
-                    
-                    $data['password'] = $hasher->HashPassword($password);
-                }
                 $this->update('users', $user['id'], $data);
                 return $this->redirectTo('/admin/utilisateurs/' . $user['id']);
             } else {
