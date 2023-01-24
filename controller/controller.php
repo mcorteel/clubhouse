@@ -153,13 +153,20 @@ class Controller
         return $flash;
     }
     
-    public function isGranted($user, $role)
+    public function isGranted($user, $roles)
     {
         if($this->authorization === null) {
             $this->authorization = new Authorization();
         }
-        
-        return $this->authorization->isGranted($user, $role);
+        if(!is_array($roles)) {
+            $roles = [$roles];
+        }
+        foreach($roles as $role) {
+            if(!$this->authorization->isGranted($user, $role)) {
+                return false;
+            }
+        }
+        return true;
     }
     
     protected function denyAccess()

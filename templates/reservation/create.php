@@ -42,8 +42,9 @@
                     <label class="form-label col-md-3 text-md-end p-md-1">Type</label>
                     <div class="col-md-9">
                         <select id="type" name="type">
-                            <option value="normal">Normal</option>
-                            <option value="training">Entraînement</option>
+                            <?php foreach($types as $key => $type) { ?>
+                                <option value="<?= $key ?>"><?= $type['name'] ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
@@ -52,10 +53,13 @@
                 <label class="form-label col-md-3 text-md-end p-md-1 py-md-2">Horaire</label>
                 <div class="col-md-9">
                     <?php if($maxDuration > 1) { ?>
-                        <span class="d-inline-block py-2">De <?= $time->format('G') ?>h à</span>
+                        <span class="d-inline-block py-2">De <?= $time->format('G') ?>h<?= $subdivision == 60 ? '' : $time->format('i') ?> à</span>
                         <select name="duration" id="duration">
-                            <?php for($i = 1 ; $i <= $maxDuration ; $i++) { ?>
-                                <option value="<?= $i ?>"><?= (int)$time->format('G') + $i ?>h</option>
+                            <?php
+                            for($i = $subdivision ; $i <= $maxDuration ; $i = $i + $subdivision) {
+                                $_time = (clone $time)->modify('+' . $i . ' minutes');
+                                ?>
+                                <option value="<?= $i ?>"><?= (int)$_time->format('G') ?>h<?= $subdivision == 60 ? '' : $_time->format('i') ?></option>
                             <?php } ?>
                         </select>
                     <?php } else { ?>
@@ -68,6 +72,14 @@
                 <label class="form-label col-md-3 text-md-end p-md-1">Joueurs</label>
                 <div class="col-md-9">
                     <select id="players" multiple name="players[]"></select>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <label class="form-label col-md-3 text-md-end p-md-1">Invités</label>
+                <div class="col-md-9">
+                    <div id="guests">
+                    </div>
+                    <button type="button" id="add_guest" class="btn btn-sm btn-success"><i class="fas fa-plus fa-fw"></i> Ajouter un invité</button>
                 </div>
             </div>
             <?php if($admin) { ?>
@@ -98,12 +110,8 @@
 
 <script>
     function checkReservation() {
-        let ok = (
-            playerSelect.getValue().length >= <?= $minPlayers ?>
-        &&
-            playerSelect.getValue().length <= <?= $maxPlayers ?>
-        );
-        console.log(playerSelect.getValue().length);
+        const playerCount = playerSelect.getValue().length + $('#guests input').length;
+        const ok = playerCount >= <?= $minPlayers ?> && playerCount <= <?= $maxPlayers ?>;
         $('#reservation_submit').prop('disabled', !ok);
     }
     
@@ -113,7 +121,6 @@
             <?php foreach($players as $player) { ?>
                 {value: <?= $player['id'] ?>, text: <?= json_encode(trim($player['first_name'] . ' ' . $player['last_name'])) ?>},
             <?php } ?>
-            {value: 0, text: 'Invité'},
         ],
         items: [
             '<?= $app['user']['id'] ?>',
@@ -138,4 +145,12 @@
         }
     });
     $('#type, #duration').selectize();
+    $('#add_guest').click(function() {
+        $('#guests').append('<div class="input-group mb-2"><input type="text" class="form-control" placeholder="Nom de l\'invité" name="guest[]" required /><button type="button" class="btn btn-outline-danger remove-guest"><i class="fas fa-trash"></i></button></div>');
+        checkReservation();
+    });
+    $('#guests').on('click', '.remove-guest', function() {
+        $(this).parent().remove();
+        checkReservation();
+    });
 </script>

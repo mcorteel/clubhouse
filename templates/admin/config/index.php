@@ -55,7 +55,17 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-md-4 col-form-label text-md-end">Durée maximale de réservation</label>
+                <label class="col-md-4 col-form-label text-md-end">Subdivision des réservations</label>
+                <div class="col-md-4">
+                    <select name="config[reservation_subdivision]">
+                        <option value="15"<?= $config['reservation_subdivision'] == 15 ? ' selected' : '' ?>>15 minutes</option>
+                        <option value="30"<?= $config['reservation_subdivision'] == 30 ? ' selected' : '' ?>>30 minutes</option>
+                        <option value="60"<?= $config['reservation_subdivision'] == 60 ? ' selected' : '' ?>>1 heure</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">Durée maximale de réservation (subdivisions)</label>
                 <div class="col-md-4">
                     <input type="number" class="form-control" name="config[reservation_max_duration]" value="<?= $config['reservation_max_duration'] ?>" min="1" />
                 </div>
@@ -107,3 +117,6 @@
         </div>
     </form>
 </div>
+<script>
+$('select').selectize();
+</script>

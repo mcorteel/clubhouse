@@ -9,7 +9,7 @@
     <?php } ?>
     <form action="" method="POST" class="card-body">
         <div class="row mb-3">
-            <label class="col-md-4 col-form-label text-md-end">E-mail</label>
+            <label class="col-md-4 col-form-label text-md-end">Identifiant</label>
             <div class="col-md-8">
                 <input type="text" class="form-control" name="email" />
             </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-8 offset-md-4">
-                <button type="submit" class="btn btn-primary">Connexion</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in fa-fw"></i> Connexion</button>
             </div>
         </div>
     </form>

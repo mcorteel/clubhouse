@@ -4,11 +4,11 @@
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `last_name` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
-  `email` varchar(120) CHARACTER SET latin1 NOT NULL,
-  `password` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `roles` varchar(300) CHARACTER SET latin1 DEFAULT 'user',
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `email` varchar(120) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `roles` varchar(300) DEFAULT 'user',
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user_email` (`email`)
@@ -55,7 +55,8 @@ CREATE TABLE `reservations` (
 CREATE TABLE `reservation_players` (
   `reservation` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `team` varchar(1) CHARACTER SET latin1 NOT NULL,
+  `team` varchar(1) NOT NULL,
+  `guest_name` varchar(100) DEFAULT NULL,
   UNIQUE KEY `reservation` (`reservation`,`user`),
   KEY `player_reservation` (`reservation`),
   KEY `player_user` (`user`),
@@ -68,7 +69,7 @@ CREATE TABLE `reservation_players` (
 --
 
 CREATE TABLE `config` (
-  `identifier` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
+  `identifier` varchar(50) NOT NULL,
   `value` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -112,7 +113,7 @@ UPDATE users SET reservation_type = 'normal';
 
 CREATE TABLE `partners` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `description` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

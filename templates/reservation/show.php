@@ -1,7 +1,7 @@
 <?php
 $startDate = new DateTime($reservation['date_start']);
 $endDate = new DateTime($reservation['date_start']);
-$endDate->modify('+' . ($reservation['duration'] ? $reservation['duration'] : 1) . ' hours');
+$endDate->modify('+' . ($reservation['duration'] ? $reservation['duration'] : 1) . ' minutes');
 ?>
 <div class="modal-header">
     <h5 class="modal-title">
@@ -11,7 +11,7 @@ $endDate->modify('+' . ($reservation['duration'] ? $reservation['duration'] : 1)
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
 </div>
 <div class="modal-header">
-    De <?= $startDate->format('G') ?>h à <?= $endDate->format('G') ?>h
+    De <?= $startDate->format('G') ?>h<?= $startDate->format('i') ?> à <?= $endDate->format('G') ?>h<?= $endDate->format('i') ?>
 </div>
 
 <style>
@@ -30,7 +30,7 @@ $endDate->modify('+' . ($reservation['duration'] ? $reservation['duration'] : 1)
     <table class="table mb-0">
         <thead>
             <tr>
-                <th>Score</th>
+                <th><span class="d-none">Score</span></th>
                 <?php foreach(array('A', 'B') as $team) { ?>
                     <td class="text-center">
                         <span class="team">
@@ -46,7 +46,7 @@ $endDate->modify('+' . ($reservation['duration'] ? $reservation['duration'] : 1)
                 <?php } ?>
             </tr>
         </thead>
-        <tbody id="score">
+        <tbody id="score" class="d-none">
             <tr id="set_1">
                 <td>
                     1<sup>er</sup> set

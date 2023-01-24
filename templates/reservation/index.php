@@ -73,17 +73,23 @@ if(!empty($resources)) {
         </thead>
         
         <tbody>
-            <?php for($i = $minHour ; $i <= $maxHour - 1 ; $i++) { ?>
+            <?php
+            for($i = $minHour * 60 ; $i < $maxHour * 60 ; $i = $i + $subdivision) {
+                $h = str_pad(floor($i / 60), 2, '0', STR_PAD_LEFT);
+                $m = str_pad($i % 60, 2, '0', STR_PAD_LEFT);
+                ?>
                 <tr class="text-center">
-                    <th class="text-end"><?= $i ?> h</th>
+                    <th class="text-end text-nowrap<?= $m != 0 ? ' text-muted" style="font-weight: normal;' : '' ?>">
+                        <?= $h ?>h<?= $subdivision != 60 ? $m : '' ?>
+                    </th>
                     <?php foreach($resources as $r => $resource) {
                         if(isset($resource['reservations'][$i])) {
                             $reservation = $resource['reservations'][$i];
                             if($reservation !== false) {
                                 $type = $types[$reservation['type']];
                                 $startDate = new DateTime($reservation['date_start']);
-                                $duration = $reservation['duration'] ? $reservation['duration'] : 1;
-                                for($j = 1 ; $j < $duration ; $j++) {
+                                $duration = $reservation['duration'] ? $reservation['duration'] : $subdivision;
+                                for($j = $subdivision ; $j < $duration ; $j = $j + $subdivision) {
                                     $resources[$r]['reservations'][$i + $j] = false;
                                 }
                                 if($canCreate) {
@@ -93,7 +99,7 @@ if(!empty($resources)) {
                                         $players[] = $p['id'] == $app['user']['id'] ? 'Moi' : trim($p['first_name'] . ' ' . $p['last_name']);
                                     }
                                     ?>
-                                    <td class="table-warning modal-link" data-url="<?= $this->path('/reservation/show/') . $reservation['id'] ?>" rowspan="<?= $duration ?>" style="vertical-align: middle; --bs-table-bg: <?= $type['color'] ?>" title="<?= implode(', ', $players) ?>">
+                                    <td class="table-warning modal-link" data-url="<?= $this->path('/reservation/show/') . $reservation['id'] ?>" rowspan="<?= $duration / $subdivision ?>" style="vertical-align: middle; --bs-table-bg: <?= $type['color'] ?>" title="<?= implode(', ', $players) ?>">
                                         <i class="fas fa-<?= $type['icon'] ?> fa-fw"></i> <span class="d-none d-lg-inline"><?= count($reservation['players']) ?> joueurs</span>
                                     </td>
                                     <?php
@@ -106,9 +112,10 @@ if(!empty($resources)) {
                                 }
                             }
                         } else {
-                            $reservable = (int)($date->format('Ymd') . str_pad($i, 2, '0', STR_PAD_LEFT)) >= (int)date('YmdH');
+                            // FIXME This should take subdivision into account
+                            $reservable = (int)($date->format('Ymd') . $h . $m) >= (int)date('YmdHi');
                             ?>
-                            <td class="<?php if($canCreate && $reservable) {?> modal-link table-success" data-url="<?= $this->path('/reservation/create', array('resource' => $resource['id'], 'time' => $date->format('Y-m-d ') . str_pad($i, 2, '0', STR_PAD_LEFT) . ':00:00')) ?><?php } elseif(!$canCreate && $reservable) { ?> table-success<?php } else { ?> table-secondary<?php } ?>">
+                            <td class="<?php if($canCreate && $reservable) {?> modal-link table-success" data-url="<?= $this->path('/reservation/create', array('resource' => $resource['id'], 'time' => $date->format('Y-m-d ') . $h . ':' . $m . ':00')) ?><?php } elseif(!$canCreate && $reservable) { ?> table-success<?php } else { ?> table-secondary<?php } ?>">
                                 <i class="fas fa-check fa-fw"></i> <span class="d-none d-lg-inline">Libre</span>
                             </td>
                             <?php

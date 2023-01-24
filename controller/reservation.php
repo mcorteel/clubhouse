@@ -68,7 +68,7 @@ class ReservationController extends Controller
             
             foreach($reservations as $reservation) {
                 $start = new DateTime($reservation['date_start']);
-                $_reservations[$start->format('G')] = $this->getReservationDetails($reservation);
+                $_reservations[(int)$start->format('G') * 60 + (int)$start->format('i')] = $this->getReservationDetails($reservation);
             }
             $resources[$i]['reservations'] = $_reservations;
         }
@@ -81,6 +81,7 @@ class ReservationController extends Controller
             'minHour' => $this->getConfig('reservation_min_hour'),
             'maxHour' => $this->getConfig('reservation_max_hour'),
             'types' => $this->getReservationTypes(),
+            'subdivision' => (int)$this->getConfig('reservation_subdivision'),
         ));
     }
     
@@ -92,9 +93,11 @@ class ReservationController extends Controller
         
         $time = new DateTime($_GET['time']);
         $admin = $this->isGranted($user, 'reservation_admin');
-        $maxDuration = min($this->getConfig('reservation_max_hour') - (int)$time->format('G'), $admin ? (24 - (int)$time->format('G')) : $this->getConfig('reservation_max_duration'));
+        $maxDuration = $admin ? (24 * 60 - (int)$time->format('G') * 60 - (int)$time->format('i')) : $this->getConfig('reservation_max_duration') * $subdivision;
+        $maxDuration = min($this->getConfig('reservation_max_hour') * 60 - (int)$time->format('G') * 60 - (int)$time->format('i'), $maxDuration);
+        $subdivision = (int)$this->getConfig('reservation_subdivision');
         
-        if((int)$time->format('YmdH') < date('YmdH')) {
+        if((int)$time->format('YmdHi') < (int)date('YmdHi')) {
             return $this->redirectTo('/reservation/' . $time->format('Y-m-d'));
         }
         
@@ -102,6 +105,13 @@ class ReservationController extends Controller
         $authorized = $admin || count($reservations) < $this->getConfig('reservation_limit');
         
         $resource = $this->querySingle('SELECT * FROM resources WHERE id = ?', array($_GET['resource']));
+        
+        $types = array();
+        foreach($this->getReservationTypes() as $key => $type) {
+            if($this->isGranted($user, $type['permissions'])) {
+                $types[$key] = $type;
+            }
+        }
         
         if($authorized && isset($_POST['duration'])) {
             $_POST['players'] = isset($_POST['players']) ? $_POST['players'] : array();
@@ -112,7 +122,7 @@ class ReservationController extends Controller
                 'type' => $admin ? $_POST['type'] : $user['reservation_type'],
                 'user' => $user['id'],
                 'resource' => $resource['id'],
-                'date_start' => $time->format('Y-m-d H:00:00'),
+                'date_start' => $time->format('Y-m-d H:i:00'),
                 'duration' => min($maxDuration, (int)$_POST['duration']),
                 'created_at' => date('Y-m-d H:i:s'),
                 'recurrence' => $admin ? $_POST['recurrence'] : null,
@@ -133,6 +143,7 @@ class ReservationController extends Controller
         return $this->renderModal('reservation/create.php', array(
             'resource' => $resource,
             'time' => $time,
+            'subdivision' => $subdivision,
             'maxDuration' => $maxDuration,
             'reservations' => $reservations,
             'authorized' => $authorized,
@@ -140,6 +151,7 @@ class ReservationController extends Controller
             'admin' => $admin,
             'minPlayers' => (int)$this->getConfig('reservation_min_players'),
             'maxPlayers' => (int)$this->getConfig('reservation_max_players'),
+            'types' => $types,
         ));
     }
     
@@ -152,6 +164,7 @@ class ReservationController extends Controller
         return $this->renderModal('reservation/show.php', array(
             'reservation' => $reservation,
             'score' => $this->getScoreDetails($reservation['score']),
+            'subdivision' => (int)$this->getConfig('reservation_subdivision'),
         ));
     }
     
