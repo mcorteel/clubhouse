@@ -123,6 +123,12 @@ a.card:hover {
     border-width: 1px;
 }
 
+@media(max-width: 499px) {
+    .table-bordered tr {
+        line-height: 1.1;
+    }
+}
+
 .modal-link {
     cursor: pointer;
 }
