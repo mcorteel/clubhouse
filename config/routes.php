@@ -53,6 +53,8 @@ return array(
     
     'admin\/config' => 'admin_config/index',
     
+    'admin\/statistics' => 'admin_statistics/index',
+    
     ////////////////////////////////////
     // Custom routes should go here > //
     ////////////////////////////////////

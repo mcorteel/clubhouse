@@ -174,3 +174,33 @@ label.form-check-label {
     border-radius: 0;
     border-top: none;
 }
+
+/**
+ * Graphs
+ */
+
+.bar-chart .card-body {
+    display: flex;
+    height: 300px;
+}
+
+.bar-chart .bar-chart-column {
+    margin: 0 2px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.bar-chart .bar-chart-label {
+    text-align: center;
+    width: 100%;
+}
+
+.bar-chart .bar-chart-bar {
+    background: var(--card-header-bgcolor);
+    width: 100%;
+    border-radius: 3px 3px 0 0;
+}
+
+.bar-chart .bar-chart-bar:hover {
+    filter: brightness(90%);
+}

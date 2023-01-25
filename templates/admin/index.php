@@ -71,6 +71,16 @@
             </a>
         </div>
     <?php } ?>
+    <div class="col-md-4">
+        <a href="<?= $this->path('/admin/statistics'); ?>" class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-chart-pie fa-fw"></i> Statistiques
+            </div>
+            <div class="card-body">
+                Voir les statistiques d'utilisation
+            </div>
+        </a>
+    </div>
 </div>
 
 <div class="card">
