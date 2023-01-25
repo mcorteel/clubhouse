@@ -97,7 +97,7 @@ class ReservationController extends Controller
         $maxDuration = min($this->getConfig('reservation_max_hour') * 60 - (int)$time->format('G') * 60 - (int)$time->format('i'), $maxDuration);
         $subdivision = (int)$this->getConfig('reservation_subdivision');
         
-        if((int)$time->format('YmdHi') < (int)date('YmdHi')) {
+        if(bccomp($time->format('YmdHi'), date('YmdHi')) < 0) {
             return $this->redirectTo('/reservation/' . $time->format('Y-m-d'));
         }
         

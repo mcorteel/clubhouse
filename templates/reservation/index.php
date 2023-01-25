@@ -113,7 +113,7 @@ if(!empty($resources)) {
                             }
                         } else {
                             // FIXME This should take subdivision into account
-                            $reservable = (int)($date->format('Ymd') . $h . $m) >= (int)date('YmdHi');
+                            $reservable = bccomp($date->format('Ymd') . $h . $m, date('YmdHi')) >= 0;
                             ?>
                             <td class="<?php if($canCreate && $reservable) {?> modal-link table-success" data-url="<?= $this->path('/reservation/create', array('resource' => $resource['id'], 'time' => $date->format('Y-m-d ') . $h . ':' . $m . ':00')) ?><?php } elseif(!$canCreate && $reservable) { ?> table-success<?php } else { ?> table-secondary<?php } ?>">
                                 <i class="fas fa-check fa-fw"></i> <span class="d-none d-lg-inline">Libre</span>
