@@ -10,6 +10,7 @@ class AdminStatisticsController extends Controller
         
         $data = array(
             'reservations' => array(
+                'hours' => array(),
                 'config' => array(
                     'min_hour' => $this->getConfig('reservation_min_hour'),
                     'max_hour' => $this->getConfig('reservation_max_hour'),
