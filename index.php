@@ -93,7 +93,7 @@ $menu = include 'config/menu.php';
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand text-truncate" href="/">
-                <img src="/assets/img/logo.svg" alt="Logo" height=40 />
+                <img src="/assets/img/logo.svg" alt="Logo" />
                 <span class="d-inline-block d-lg-none d-xl-inline-block">
                     <?= $controller->getConfig('meta_title') ?>
                 </span>
