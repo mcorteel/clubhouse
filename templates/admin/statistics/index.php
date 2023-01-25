@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body">
                     <?php
-                    $max = max($reservations['hours']);
+                    $max = empty($reservations['hours']) ? 0 : max($reservations['hours']);
                     $hours = $reservations['config']['max_hour'] - $reservations['config']['min_hour'] - 1;
                     for($i = $reservations['config']['min_hour'] ; $i < $reservations['config']['max_hour'] ; $i++) {
                         ?>
