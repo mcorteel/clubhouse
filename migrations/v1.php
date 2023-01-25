@@ -1,6 +1,6 @@
 <?php
 $setup = include 'config/setup.php';
-$prefix = $setup['database']['prefix'] ? $setup['database']['prefix'] . '_' : '';
+$prefix = $setup['database']['prefix'] ? $setup['database']['prefix'] : '';
 ?>
 --
 -- Create user table
@@ -16,7 +16,7 @@ CREATE TABLE `<?= $prefix ?>users` (
   `created_at` datetime NOT NULL,
   `reservation_type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_user_email` (`email`)
+  UNIQUE KEY `<?= $prefix ?>unique_user_email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -60,8 +60,8 @@ CREATE TABLE `<?= $prefix ?>reservations` (
   `recurrence` varchar(15) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `reservation_user_index` (`user`),
-  KEY `reservation_resource` (`resource`)
+  KEY `<?= $prefix ?>reservation_user_index` (`user`),
+  KEY `<?= $prefix ?>reservation_resource` (`resource`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -73,11 +73,11 @@ CREATE TABLE `<?= $prefix ?>reservation_players` (
   `user` int(11) NOT NULL,
   `team` varchar(1) NOT NULL,
   `guest_name` varchar(100) DEFAULT NULL,
-  UNIQUE KEY `reservation` (`reservation`,`user`),
-  KEY `player_reservation` (`reservation`),
-  KEY `player_user` (`user`),
-  CONSTRAINT `reservation_player_reservation_constraint` FOREIGN KEY (`reservation`) REFERENCES `reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `reservation_player_user_constraint` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `<?= $prefix ?>reservation` (`reservation`,`user`),
+  KEY `<?= $prefix ?>player_reservation` (`reservation`),
+  KEY `<?= $prefix ?>player_user` (`user`),
+  CONSTRAINT `<?= $prefix ?>reservation_player_reservation_constraint` FOREIGN KEY (`reservation`) REFERENCES `<?= $prefix ?>reservations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `<?= $prefix ?>reservation_player_user_constraint` FOREIGN KEY (`user`) REFERENCES `<?= $prefix ?>users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
