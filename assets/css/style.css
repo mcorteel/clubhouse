@@ -32,8 +32,17 @@ body {
     margin-bottom: -0.4rem;
 }
 
-.navbar-brand > img {
+.navbar-brand img {
     height: 55px;
+}
+
+.navbar-brand span {
+    line-height: 25px;
+    vertical-align: middle;
+    color: var(--menu-link-hover-color);
+    font-weight: bold;
+    max-width: 200px;
+    white-space: normal;
 }
 
 

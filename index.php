@@ -94,6 +94,9 @@ $menu = include 'config/menu.php';
         <div class="container">
             <a class="navbar-brand text-truncate" href="/">
                 <img src="/assets/img/logo.svg" alt="Logo" height=40 />
+                <span class="d-inline-block d-lg-none d-xl-inline-block">
+                    <?= $controller->getConfig('meta_title') ?>
+                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
