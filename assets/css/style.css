@@ -193,6 +193,7 @@ label.form-check-label {
 .bar-chart .bar-chart-label {
     text-align: center;
     width: 100%;
+    font-size: 0.8em;
 }
 
 .bar-chart .bar-chart-bar {
