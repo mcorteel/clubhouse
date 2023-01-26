@@ -198,6 +198,9 @@ label.form-check-label {
 .bar-chart .bar-chart-bar {
     background: var(--card-header-bgcolor);
     width: 100%;
+}
+
+.bar-chart .bar-chart-bar:last-child {
     border-radius: 3px 3px 0 0;
 }
 

@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="card-body tab-pane" id="tab_reservations">
-            <div class="card bar-chart">
+            <div class="card bar-chart mb-3">
                 <div class="card-header">
                     Heure de début la plus réservée
                 </div>
@@ -42,6 +42,42 @@
                                 ?>
                                 <div class="bar-chart-bar" style="height:<?= round($value / $max * 100) ?>%" title="<?= $value ?>"></div>
                             <?php } ?>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="card bar-chart mb-3">
+                <div class="card-header">
+                    Réservations par semaine
+                </div>
+                <div class="card-body">
+                    <?php
+                    $max = empty($reservations['weeks']) ? 0 : max($reservations['weeks']);
+                    for($date = new DateTime('52 weeks ago') ; $date->format('Ymd') <= date('Ymd') ; $date->modify('+1 week')) {
+                        ?>
+                        <div style="width: <?= 100 / 52 ?>%" class="bar-chart-column">
+                            <div class="bar-chart-label" title="Semaine <?= (int)$date->format('W') ?> <?= $date->format('Y') ?>"><?= (int)$date->format('W') ?></div>
+                            <?php if(isset($reservations['weeks'][$date->format('YW')])) {
+                                $value = $reservations['weeks'][$date->format('YW')];
+                                ?>
+                                <div class="bar-chart-bar" style="height:<?= round($value / $max * 100) ?>%" title="<?= $value ?>"></div>
+                            <?php } ?>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="card bar-chart mb-3">
+                <div class="card-header">
+                    Resources les plus réservées
+                </div>
+                <div class="card-body">
+                    <?php
+                    $max = empty($reservations['resources']) ? 0 : max($reservations['resources']);
+                    foreach($reservations['resources'] as $name => $value) {
+                        ?>
+                        <div style="width: <?= 100 / count($reservations['resources']) ?>%" class="bar-chart-column">
+                            <div class="bar-chart-label"><?= $name ?></div>
+                            <div class="bar-chart-bar" style="height:<?= round($value / $max * 100) ?>%" title="<?= $value ?>"></div>
                         </div>
                     <?php } ?>
                 </div>
