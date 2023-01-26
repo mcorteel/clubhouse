@@ -7,7 +7,7 @@ class ReservationController extends Controller
     private function getReservationDetails($reservation, $resource = false)
     {
         $reservation = array_merge($reservation, array(
-            'players' => $this->query('SELECT rp.team AS team, u.first_name AS first_name, u.last_name AS last_name, u.id AS id FROM reservation_players rp JOIN users u ON rp.user = u.id WHERE rp.reservation = ? ORDER BY rp.team', array($reservation['id'])),
+            'players' => $this->query('SELECT rp.team AS team, u.first_name AS first_name, u.last_name AS last_name, rp.guest_name AS guest_name, u.id AS id FROM reservation_players rp LEFT JOIN users u ON rp.user = u.id WHERE rp.reservation = ? ORDER BY rp.team', array($reservation['id'])),
         ));
         if($resource) {
             $reservation['resource'] = $this->querySingle('SELECT * FROM resources WHERE id = ?', array($reservation['resource']));
@@ -130,13 +130,23 @@ class ReservationController extends Controller
             ));
             $pCount = count($_POST['players']);
             
-            foreach($_POST['players'] as $i => $uId) {
+            $i = 0;
+            foreach($_POST['players'] as $uId) {
                 $pId = $this->insert('reservation_players', array(
                     'reservation' => $rId,
                     'user' => $uId,
-                    'team' => $i < $pCount / 2 ? 'A' : 'B',
+                    'team' => $i++ < $pCount / 2 ? 'A' : 'B',
                 ));
             }
+            
+            foreach($_POST['guest'] as $name) {
+                $pId = $this->insert('reservation_players', array(
+                    'reservation' => $rId,
+                    'guest_name' => $name,
+                    'team' => $i++ < $pCount / 2 ? 'A' : 'B',
+                ));
+            }
+            
             return $this->redirectTo('/reservation/' . $time->format('Y-m-d'));
         }
         

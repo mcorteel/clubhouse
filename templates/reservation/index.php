@@ -96,7 +96,7 @@ if(!empty($resources)) {
                                     $players = array();
                                     foreach($reservation['players'] as $p) {
                                         // NOTE Doesn't work
-                                        $players[] = $p['id'] == $app['user']['id'] ? 'Moi' : trim($p['first_name'] . ' ' . $p['last_name']);
+                                        $players[] = $p['id'] == $app['user']['id'] ? 'Moi' : ($p['guest_name'] ? $p['guest_name'] : trim($p['first_name'] . ' ' . $p['last_name']));
                                     }
                                     ?>
                                     <td class="table-warning modal-link" data-url="<?= $this->path('/reservation/show/') . $reservation['id'] ?>" rowspan="<?= $duration / $subdivision ?>" style="vertical-align: middle; --bs-table-bg: <?= $type['color'] ?>" title="<?= implode(', ', $players) ?>">

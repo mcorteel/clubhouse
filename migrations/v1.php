@@ -70,7 +70,7 @@ CREATE TABLE `<?= $prefix ?>reservations` (
 
 CREATE TABLE `<?= $prefix ?>reservation_players` (
   `reservation` int(11) NOT NULL,
-  `user` int(11) NOT NULL,
+  `user` int(11) DEFAULT NULL,
   `team` varchar(1) NOT NULL,
   `guest_name` varchar(100) DEFAULT NULL,
   UNIQUE KEY `<?= $prefix ?>reservation` (`reservation`,`user`),

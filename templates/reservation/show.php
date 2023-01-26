@@ -37,7 +37,7 @@ $endDate->modify('+' . ($reservation['duration'] ? $reservation['duration'] : 1)
                             <?php foreach($reservation['players'] as $player) {
                                 if($player['team'] === $team) { ?>
                                     <span>
-                                        <?= $player['first_name'] ?> <?= $player['last_name'] ?>
+                                        <?= $player['first_name'] ?> <?= $player['last_name'] ?> <?= $player['guest_name'] ?>
                                     </span>
                                 <?php }
                             } ?>
