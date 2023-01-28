@@ -6,8 +6,8 @@
         <i class="fas fa-chart-pie fa-fw"></i> statistics
     </div>
     <ul class="nav nav-tabs card-body">
-        <li class="nav-item active">
-            <a class="nav-link" aria-current="page" href="<?= $this->path('/admin/statistics') ?>#users" id="users_toggle">Utilisateurs</a>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="<?= $this->path('/admin/statistics') ?>#users" id="users_toggle">Utilisateurs</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<?= $this->path('/admin/statistics') ?>#reservations" id="reservations_toggle">Réservations</a>
