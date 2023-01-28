@@ -206,7 +206,7 @@ class Controller
         return include 'config/config.php';
     }
     
-    public function getConfig($key, $override = array())
+    public function getConfig($key, $override = array(), $defaultValue = null)
     {
         if(isset($override[$key])) {
             return $override[$key];
@@ -219,7 +219,10 @@ class Controller
         }
         
         $defaultConfig = $this->getDefaultConfig();
-        return $defaultConfig[$key];;
+        if(isset($defaultConfig[$key])) {
+            return $defaultConfig[$key];
+        }
+        return $defaultValue;
     }
     
     protected function setConfig($key, $value)

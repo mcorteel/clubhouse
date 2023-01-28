@@ -62,6 +62,18 @@
             </div>
             <hr />
             <div class="row mb-3">
+                <div class="col-md-8 offset-md-4">
+                    <input type="checkbox" class="form-check-input" id="reservation_include_self" name="config[reservation_include_self]"<?= $config['reservation_include_self'] ? ' checked' : '' ?> />
+                    <label class="form-check-label" for="reservation_include_self">Ne pas permettre de réserver pour les autres</label>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8 offset-md-4">
+                    <input type="checkbox" class="form-check-input" id="reservation_allow_guests" name="config[reservation_allow_guests]"<?= $config['reservation_allow_guests'] ? ' checked' : '' ?> />
+                    <label class="form-check-label" for="reservation_allow_guests">Autoriser les invités</label>
+                </div>
+            </div>
+            <div class="row mb-3">
                 <label class="col-md-4 col-form-label text-md-end">Nombre maximum de réservations</label>
                 <div class="col-md-4">
                     <input type="number" class="form-control" name="config[reservation_limit]" value="<?= $config['reservation_limit'] ?>" min="1" />

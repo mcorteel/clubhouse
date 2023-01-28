@@ -5,6 +5,8 @@ return array(
     'meta_description' => 'A website builder for sports clubs',
     'meta_keywords' => 'sports,club,clubhouse',
     'reservation_message' => null,
+    'reservation_include_self' => true,
+    'reservation_allow_guests' => true,
     'reservation_subdivision' => 60,
     'reservation_limit' => 2,
     'reservation_min_hour' => 8,

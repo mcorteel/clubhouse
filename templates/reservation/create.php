@@ -68,13 +68,13 @@
                     <?php } ?>
                 </div>
             </div>
-            <div class="row mb-1">
+            <div class="row mb-1<?= $allowPlayers ? '' : ' d-none' ?>">
                 <label class="form-label col-md-3 text-md-end p-md-1">Joueurs</label>
                 <div class="col-md-9">
                     <select id="players" multiple name="players[]"></select>
                 </div>
             </div>
-            <div class="row mb-1">
+            <div class="row mb-1<?= $allowGuests ? '' : ' d-none' ?>">
                 <label class="form-label col-md-3 text-md-end p-md-1">Invités</label>
                 <div class="col-md-9">
                     <div id="guests">
@@ -123,11 +123,11 @@
             <?php } ?>
         ],
         items: [
-            '<?= $app['user']['id'] ?>',
+            <?php if($includeSelf) { ?>'<?= $app['user']['id'] ?>',<?php } ?>
         ],
         maxItems: <?= $admin ? 10 : $maxPlayers ?>,
         onItemRemove: function(value) {
-            if(value == <?= $app['user']['id'] ?>) {
+            if(<?= json_encode($includeSelf) ?> && value == <?= $app['user']['id'] ?>) {
                 this.addItem(value);
             }
             checkReservation();

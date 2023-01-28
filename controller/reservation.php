@@ -93,18 +93,9 @@ class ReservationController extends Controller
         
         $time = new DateTime($_GET['time']);
         $admin = $this->isGranted($user, 'reservation_admin');
-        $subdivision = (int)$this->getConfig('reservation_subdivision');
-        $maxDuration = $admin ? (24 * 60 - (int)$time->format('G') * 60 - (int)$time->format('i')) : $this->getConfig('reservation_max_duration') * $subdivision;
-        $maxDuration = min($this->getConfig('reservation_max_hour') * 60 - (int)$time->format('G') * 60 - (int)$time->format('i'), $maxDuration);
-        
         if(bccomp($time->format('YmdHi'), date('YmdHi')) < 0) {
             return $this->redirectTo('/reservation/' . $time->format('Y-m-d'));
         }
-        
-        $reservations = $this->query('SELECT r.* FROM reservation_players rp JOIN reservations r ON rp.reservation = r.id WHERE rp.user = ? AND r.date_start > NOW()', array($user['id']));
-        $authorized = $admin || count($reservations) < $this->getConfig('reservation_limit');
-        
-        $resource = $this->querySingle('SELECT * FROM resources WHERE id = ?', array($_GET['resource']));
         
         $types = array();
         foreach($this->getReservationTypes() as $key => $type) {
@@ -112,6 +103,23 @@ class ReservationController extends Controller
                 $types[$key] = $type;
             }
         }
+        
+        if(!$admin) {
+            $type = $types[$user['reservation_type']];
+        }
+        $configOverride = isset($type['config']) ? $type['config'] : array();
+        
+        $subdivision = (int)$this->getConfig('reservation_subdivision');
+        $maxDuration = $admin ? (24 * 60 - (int)$time->format('G') * 60 - (int)$time->format('i')) : $this->getConfig('reservation_max_duration', $configOverride) * $subdivision;
+        $maxDuration = min($this->getConfig('reservation_max_hour', $configOverride) * 60 - (int)$time->format('G') * 60 - (int)$time->format('i'), $maxDuration);
+        
+        $reservations = $this->query('SELECT r.* FROM reservation_players rp JOIN reservations r ON rp.reservation = r.id WHERE rp.user = ? AND r.date_start > NOW()', array($user['id']));
+        $authorized = $admin || count($reservations) < $this->getConfig('reservation_limit', $configOverride);
+        $includeSelf = $this->getConfig('reservation_include_self', $configOverride);
+        $allowGuests = $this->getConfig('reservation_allow_guests', $configOverride);
+        $allowPlayers = $this->getConfig('reservation_allow_players', $configOverride, true);
+        
+        $resource = $this->querySingle('SELECT * FROM resources WHERE id = ?', array($_GET['resource']));
         
         if($authorized && isset($_POST['duration'])) {
             $_POST['players'] = isset($_POST['players']) ? $_POST['players'] : array();
@@ -155,12 +163,15 @@ class ReservationController extends Controller
             'time' => $time,
             'subdivision' => $subdivision,
             'maxDuration' => $maxDuration,
+            'includeSelf' => $includeSelf,
+            'allowGuests' => $allowGuests,
+            'allowPlayers' => $allowPlayers,
             'reservations' => $reservations,
             'authorized' => $authorized,
             'players' => $this->query('SELECT u.id, u.first_name, u.last_name FROM users u WHERE (SELECT COUNT(DISTINCT r.id) FROM reservation_players rp JOIN reservations r ON rp.reservation = r.id WHERE rp.user = u.id AND r.date_start > NOW()) < ? ORDER BY u.last_name, u.first_name', array((int)$this->getConfig('reservation_limit'))),
             'admin' => $admin,
-            'minPlayers' => (int)$this->getConfig('reservation_min_players'),
-            'maxPlayers' => (int)$this->getConfig('reservation_max_players'),
+            'minPlayers' => (int)$this->getConfig('reservation_min_players', $configOverride),
+            'maxPlayers' => (int)$this->getConfig('reservation_max_players', $configOverride),
             'types' => $types,
         ));
     }
