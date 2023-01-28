@@ -93,9 +93,9 @@ class ReservationController extends Controller
         
         $time = new DateTime($_GET['time']);
         $admin = $this->isGranted($user, 'reservation_admin');
+        $subdivision = (int)$this->getConfig('reservation_subdivision');
         $maxDuration = $admin ? (24 * 60 - (int)$time->format('G') * 60 - (int)$time->format('i')) : $this->getConfig('reservation_max_duration') * $subdivision;
         $maxDuration = min($this->getConfig('reservation_max_hour') * 60 - (int)$time->format('G') * 60 - (int)$time->format('i'), $maxDuration);
-        $subdivision = (int)$this->getConfig('reservation_subdivision');
         
         if(bccomp($time->format('YmdHi'), date('YmdHi')) < 0) {
             return $this->redirectTo('/reservation/' . $time->format('Y-m-d'));
