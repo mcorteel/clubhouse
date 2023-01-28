@@ -98,9 +98,9 @@ class ReservationController extends Controller
         }
         
         $types = array();
-        foreach($this->getReservationTypes() as $key => $type) {
-            if($this->isGranted($user, $type['permissions'])) {
-                $types[$key] = $type;
+        foreach($this->getReservationTypes() as $key => $_type) {
+            if($this->isGranted($user, $_type['permissions'])) {
+                $types[$key] = $_type;
             }
         }
         
