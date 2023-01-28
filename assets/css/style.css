@@ -182,6 +182,7 @@ label.form-check-label {
 .bar-chart .card-body {
     display: flex;
     height: 300px;
+    overflow: auto;
 }
 
 .bar-chart .bar-chart-column {
