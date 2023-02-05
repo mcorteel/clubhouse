@@ -83,7 +83,7 @@
             </div>
             <hr />
             <div class="alert alert-info">
-                <i class="fas fa-info-circle fa-fw"></i>  Si vous souhaitez empêcher des robots de créer des comptes sur votre site, vous pouvez utiliser le service reCAPTCHA. Pour cela, <a href="https://www.google.com/recaptcha/admin" target="_blank">rendez-vous sur le site de reCAPTCHA</a> et suivez la configuration pour créer des identifiants reCAPTCHA v2.
+                <i class="fas fa-info-circle fa-fw"></i>  Si vous souhaitez empêcher des robots de créer des comptes sur votre site (ce qui est fortement recommandé), vous pouvez utiliser le service reCAPTCHA. Pour cela, <a href="https://www.google.com/recaptcha/admin" target="_blank">rendez-vous sur le site de reCAPTCHA</a> et suivez la configuration pour <a href="https://www.google.com/recaptcha/admin/create" target="_blank">créer des identifiants reCAPTCHA v2</a>.
             </div>
             <div class="row mb-3">
                 <label class="col-md-4 col-form-label text-md-end">Clé reCAPTCHA</label>
