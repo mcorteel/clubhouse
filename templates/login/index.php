@@ -57,19 +57,19 @@
                         <div class="row mb-3">
                             <label class="col-md-4 col-form-label text-md-end">Prénom</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="first_name" value="<?= $_POST['first_name'] ?>" autofocus required />
+                                <input type="text" class="form-control" name="first_name" value="<?= isset($_POST['first_name']) ? $_POST['first_name'] : '' ?>" autofocus required />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-4 col-form-label text-md-end">Nom</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="last_name" value="<?= $_POST['last_name'] ?>" autofocus />
+                                <input type="text" class="form-control" name="last_name" value="<?= isset($_POST['last_name']) ? $_POST['last_name'] : '' ?>" autofocus />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-md-4 col-form-label text-md-end">Identifiant</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="email" value="<?= $_POST['email'] ?>" autofocus required />
+                                <input type="text" class="form-control" name="email" value="<?= isset($_POST['email']) ? $_POST['email'] : '' ?>" autofocus required />
                             </div>
                         </div>
                         <div class="row mb-3">
