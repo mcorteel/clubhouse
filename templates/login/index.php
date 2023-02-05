@@ -1,3 +1,6 @@
+<?php if($recaptchaKey) { ?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<?php } ?>
 <div class="row">
     <div class="col-md-6<?= $registration ? '' : ' offset-md-3' ?>">
         <div class="card mb-3">
@@ -31,7 +34,7 @@
         </div>
     </div>
     <?php if($registration) { ?>
-        <div class="col-md-<?= $registration ? 6 : 12 ?>">
+        <div class="col-md-<?= $registration ? 6 : 12 ?>" id="registration_form">
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-user-plus fa-fw"></i> Pas encore de compte ?
@@ -80,7 +83,14 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-check fa-fw"></i> Créer mon compte</button>
+                                <div class="g-recaptcha" data-sitekey="<?= $recaptchaKey ?>"></div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-check fa-fw"></i> Créer mon compte
+                                </button>
                             </div>
                         </div>
                     </form>

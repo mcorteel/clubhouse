@@ -20,6 +20,8 @@ return array(
     'user_registration_allow' => true,
     'user_registration_verify' => true,
     'user_registration_roles' => '',
+    'recaptcha_key' => '',
+    'recaptcha_secret' => '',
     
     ///////////////////////////////////////////
     // Custom configuration should go here > //

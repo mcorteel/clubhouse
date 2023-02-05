@@ -81,6 +81,21 @@
                     </div>
                 </div>
             </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">Clé reCAPTCHA</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="config[recaptcha_key]" value="<?= $config['recaptcha_key'] ?>" />
+                    <div class="text-muted">
+                        <i class="fas fa-info-circle fa-fw"></i> Pour obtenir une clé, rendez-vous <a href="https://www.google.com/recaptcha/admin" target="_blank">ici</a>.
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">Clé secrète reCAPTCHA</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="config[recaptcha_secret]" value="<?= $config['recaptcha_secret'] ?>" />
+                </div>
+            </div>
         </div>
         <div class="card-body tab-pane" id="tab_reservation">
             <div class="row mb-3">
