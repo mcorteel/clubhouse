@@ -13,6 +13,7 @@ return array(
     
     'login' => 'login/index',
     'logout' => 'login/logout',
+    'register' => 'login/register',
     
     'admin' => 'admin/index',
     

@@ -25,7 +25,7 @@ class AdminUsersController extends Controller
         $firstItem = ((int)$page - 1) * $itemsPerPage;
         
         return $this->render('admin/user/list.php', array(
-            'users' => $this->query('SELECT * FROM users ORDER BY last_name ASC, first_name ASC LIMIT ' . $firstItem . ', ' . $itemsPerPage),
+            'users' => $this->query('SELECT * FROM users ORDER BY active ASC, last_name ASC, first_name ASC LIMIT ' . $firstItem . ', ' . $itemsPerPage),
             'pagination' => array(
                 'page' => $page,
                 'pages' => $pages,
@@ -43,6 +43,7 @@ class AdminUsersController extends Controller
         } else {
             $user = array(
                 'id' => null,
+                'active' => true,
                 'first_name' => '',
                 'last_name' => '',
                 'email' => '',
@@ -53,6 +54,7 @@ class AdminUsersController extends Controller
         
         if(isset($_POST['first_name'])) {
             $data = array(
+                'active' => isset($_POST['active']) ? 1 : 0,
                 'first_name' => $_POST['first_name'],
                 'last_name' => $_POST['last_name'],
                 'email' => $_POST['email'],

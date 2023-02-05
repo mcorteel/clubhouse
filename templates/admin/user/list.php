@@ -27,7 +27,7 @@
         <?php foreach($users as $user) {
             $_roles = array_filter(explode(',', $user['roles']));
             ?>
-            <tr>
+            <tr<?= $user['active'] ? '' : ' class="table-danger"' ?>>
                 <td><?= $user['first_name']; ?> <?= $user['last_name']; ?></td>
                 <td><?= $user['email']; ?></td>
                 <td class="roles">

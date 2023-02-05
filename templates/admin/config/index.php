@@ -10,6 +10,9 @@
             <a class="nav-link active" aria-current="page" href="<?= $this->path('/admin/config') ?>#general" id="general_toggle">Général</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="<?= $this->path('/admin/config') ?>#users" id="users_toggle">Utilisateurs</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" aria-current="page" href="<?= $this->path('/admin/config') ?>#reservation" id="reservation_toggle">Réservations</a>
         </li>
         <li class="nav-item">
@@ -50,6 +53,32 @@
                 <label class="col-md-4 col-form-label text-md-end">E-mail du club</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" name="config[club_email]" value="<?= $config['club_email'] ?>" />
+                </div>
+            </div>
+        </div>
+        <div class="card-body tab-pane" id="tab_users">
+            <div class="row mb-3 toggle-root" data-target=".if-user-registration-allow">
+                <div class="col-md-8 offset-md-4">
+                    <input type="checkbox" class="form-check-input" id="user_registration_allow" name="config[user_registration_allow]"<?= $config['user_registration_allow'] ? ' checked' : '' ?> />
+                    <label class="form-check-label" for="user_registration_allow">Autoriser la création de compte</label>
+                </div>
+            </div>
+            <div class="row mb-3 if-user-registration-allow">
+                <div class="col-md-8 offset-md-4">
+                    <input type="checkbox" class="form-check-input" id="user_registration_verify" name="config[user_registration_verify]"<?= $config['user_registration_verify'] ? ' checked' : '' ?> />
+                    <label class="form-check-label" for="user_registration_verify">Vérifier les comptes créés</label>
+                    <div class="text-muted">
+                        <i class="fas fa-exclamation-triangle fa-fw"></i> Si cette option est désactivée, n'importe qui pourra se connecter dès la création de son compte.
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-md-4 col-form-label text-md-end">Permissions par défaut</label>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="config[user_registration_roles]" value="<?= $config['user_registration_roles'] ?>" />
+                    <div class="text-muted">
+                        <i class="fas fa-info-circle fa-fw"></i> Clé de chaque permission, séparées par des virgules.
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,13 +159,6 @@
                 <label class="col-md-4 col-form-label text-md-end">Dossier de stockage des photos</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" name="config[picture_dir]" value="<?= $config['picture_dir'] ?>" />
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-md-4 col-form-label text-md-end">Lien du calendrier</label>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" name="config[calendar_link]" value="<?= $config['calendar_link'] ?>" />
-                    <div class="text-muted"><i class="fas fa-info-circle fa-fw"></i> Lien public du calendrier Nextcloud.</div>
                 </div>
             </div>
         </div>

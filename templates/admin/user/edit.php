@@ -15,6 +15,14 @@ $_roles = explode(',', $user['roles']);
     <form action="" method="POST">
         <div class="card-body">
             <div class="row mb-3">
+                <div class="col-md-8 offset-md-4">
+                    <div class="mt-2 form-check">
+                        <input type="checkbox" name="active" class="form-check-input" id="active"<?php if($user['active']) { ?> checked="checked"<?php } ?> />
+                        <label class="form-check-label" for="active">Actif</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
                 <label class="col-md-4 col-form-label text-md-end">Nom</label>
                 <div class="col-md-4">
                     <input type="text" class="form-control" name="first_name" placeholder="Prénom" value="<?= $user['first_name']; ?>" />

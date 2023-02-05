@@ -14,10 +14,12 @@ return array(
     'reservation_max_duration' => 1,
     'reservation_min_players' => 2,
     'reservation_max_players' => 2,
-    'calendar_link' => null,
     'picture_dir' => 'photos',
     'club_email' => 'example@domain.com',
     'club_address' => "Example street\nExample City",
+    'user_registration_allow' => true,
+    'user_registration_verify' => true,
+    'user_registration_roles' => '',
     
     ///////////////////////////////////////////
     // Custom configuration should go here > //
