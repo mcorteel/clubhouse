@@ -169,4 +169,10 @@
 </div>
 <script>
 $('select').selectize();
+$('input[type=checkbox]').each(function() {
+    $(this).parent().append('<input type="hidden" value="' + ($(this).prop('checked') ? '1' : '0') + '" name="' + $(this).attr('name') + '" />');
+    $(this).on('change', function() {
+        $(this).parent().find('input[type=hidden]').val($(this).prop('checked') ? '1' : '0');
+    });
+});
 </script>
