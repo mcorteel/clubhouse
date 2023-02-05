@@ -22,7 +22,7 @@ class LoginController extends Controller
         }
         
         if($this->getUser()) {
-            return $this->redirectTo('/actualites');
+            return $this->redirectTo('/');
         }
         
         return $this->render('login/index.php', array(
@@ -34,6 +34,6 @@ class LoginController extends Controller
     {
         unset($_SESSION['auth_user']);
         
-        return $this->redirectTo('/actualites');
+        return $this->redirectTo('/');
     }
 }

@@ -7,7 +7,7 @@ class AdminController extends Controller
     public function index($page = 1)
     {
         if(!$this->isGranted($user = $this->getUser(), 'admin')) {
-            return $this->redirectTo('/actualites');
+            return $this->redirectTo('/');
         }
         
         return $this->render('admin/index.php', array(
