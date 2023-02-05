@@ -36,7 +36,11 @@ class LoginController extends Controller
     
     public function register()
     {
-        if($this->getUser()) {
+        if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return $this->redirectTo('/login');
+        }
+        
+        if($this->getUser() || !$this->getConfig('user_registration_allow')) {
             return $this->redirectTo('/');
         }
         
@@ -57,7 +61,7 @@ class LoginController extends Controller
                 if($password = $_POST['password']) {
                     $hasher = new PasswordHash(8, false);
                     
-                    $data['password'] = $hasher->HashPassword($password);
+                    $data['password'] = @$hasher->HashPassword($password);
                 }
                 $data['created_at'] = date('Y-m-d H:i:s');
                 $this->insert('users', $data);

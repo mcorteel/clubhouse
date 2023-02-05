@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-<?= $registration ? 6 : 12 ?>">
+    <div class="col-md-6<?= $registration ? '' : ' offset-md-3' ?>">
         <div class="card mb-3">
             <div class="card-header">
                 <i class="fas fa-sign-in fa-fw"></i> Connexion
